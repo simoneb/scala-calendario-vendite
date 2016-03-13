@@ -18,7 +18,7 @@ function loadCalendar() {
 			var script = $('#calendarioEventi script').text();
 			var events = /events: (\[[\s\S.]+}\,\s+\])/.exec(script);
 			
-			cal.events.length = 0;
+			cal.events().length = 0;
 			
 			cal.events(eval(events[1]).map(event => ({
 				start: new Date(event.start),
