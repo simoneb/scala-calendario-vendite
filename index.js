@@ -20,7 +20,14 @@ function loadCalendar() {
 			
 			cal.clear();
 			
-			cal.events(eval(events[1]).map(event => (event)));
+			cal.events(eval(events[1]).map(event => ({
+				start: new Date(event.start),
+				end: new Date(event.end),
+				summary: event.description,
+				description: event.title,
+				location: event.luogo,
+				url: event.url
+			})));
 		});
 
 }
