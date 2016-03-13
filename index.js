@@ -2,7 +2,7 @@ var request = require('superagent'),
 	cheerio = require('cheerio'),
 	ical = require('ical-generator'),
     http = require('http')
-	cal = ical({domain: 'iteatri.re.it', name: 'Teatri Reggio'});
+	cal = ical({ domain: 'iteatri.re.it', name: 'Teatri Reggio', ttl: 60 * 60 * 24 });
 
 setInterval(loadCalendar, 10000);
 loadCalendar();
@@ -18,7 +18,7 @@ function loadCalendar() {
 			var script = $('#calendarioEventi script').text();
 			var events = /events: (\[[\s\S.]+}\,\s+\])/.exec(script);
 			
-			cal.clear();
+			cal.events.length = 0;
 			
 			cal.events(eval(events[1]).map(event => ({
 				start: new Date(event.start),
