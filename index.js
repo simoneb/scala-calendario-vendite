@@ -24,7 +24,6 @@ function loadCalendar() {
 				start: new Date(event.start),
 				end: new Date(event.end),
 				summary: event.title,
-				description: event.description,
 				location: event.luogo,
 				url: event.url,
 				allDay: true
