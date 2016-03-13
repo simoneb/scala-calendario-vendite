@@ -23,10 +23,11 @@ function loadCalendar() {
 			cal.events(eval(events[1]).map(event => ({
 				start: new Date(event.start),
 				end: new Date(event.end),
-				summary: event.description,
-				description: event.title,
+				summary: event.title,
+				description: event.description,
 				location: event.luogo,
-				url: event.url
+				url: event.url,
+				allDay: true
 			})));
 		});
 
