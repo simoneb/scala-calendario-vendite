@@ -5,12 +5,9 @@ const http = require('http')
 
 cal = ical({domain: 'iteatri.re.it', name: 'Teatri Reggio', ttl: 60 * 60 /* 1 hour*/})
 
-setInterval(loadCalendar, 60 * 1000 /* 1 minute */)
-loadCalendar()
+http.createServer((req, res) => serveCalendar(res)).listen(process.env.PORT || 3000)
 
-http.createServer((req, res) => cal.serve(res)).listen(process.env.PORT || 3000)
-
-function loadCalendar () {
+function serveCalendar (httpRes) {
   request.get('http://www.iteatri.re.it/Calendario.jsp')
     .type('text/html')
     .end((err, res) => {
@@ -34,6 +31,8 @@ function loadCalendar () {
           }))
           .filter(event => (Math.abs(event.end - event.start) / 1000 / 60 / 60 / 24) < 2)
       )
+
+      cal.serve(httpRes)
     })
 
 }
